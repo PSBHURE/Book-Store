@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  bookstore-frontend:
+    image: bookstore-frontend   # Use the pre-built image
+    container_name: bookstore-frontend
+    ports:
+      - "8080:80"   # Host:Container (http://localhost:8080)
+    restart: always
