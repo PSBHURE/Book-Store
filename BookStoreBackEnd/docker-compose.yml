@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  backend:
+    image: bookstore-backend
+    container_name: bookstore-backend
+    ports:
+      - "8080:80" # host:container
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=BookStore;User=sa;Password=Your_password123;TrustServerCertificate=True
+      - Jwt__Key=qwertyuiopasdfghjklzxcvbnm@#$qwertyuiopasdfghjklzxcvbnm
+      - Jwt__Issuer=PustakParadise
+      - Jwt__Audience=audience
+      - EmailSettings__Host=smtp.gmail.com
+      - EmailSettings__Port=587
+      - EmailSettings__Name=Pustak Paradise
+      - EmailSettings__EmailId=nalawadeshirish5465@gmail.com
+      - EmailSettings__UserName=ssn
+      - EmailSettings__Password=ewlu mtqu zirg cunj
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bookstore-db
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Your_password123
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
