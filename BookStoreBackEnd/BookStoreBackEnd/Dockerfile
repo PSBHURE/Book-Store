@@ -4,16 +4,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and project files
-COPY *.sln ./
-COPY BookStoreBackEnd/*.csproj ./BookStoreBackEnd/
+# Copy project file and restore dependencies
+COPY BookStoreBackEnd.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the code
 COPY . .
 
 # Build and publish
-WORKDIR /src/BookStoreBackEnd
 RUN dotnet publish -c Release -o /app/publish
 
 # =========================
@@ -25,7 +23,7 @@ WORKDIR /app
 # Copy published output
 COPY --from=build /app/publish .
 
-# Expose port (internal container port)
+# Expose container port
 EXPOSE 8080
 
 # Run the app
