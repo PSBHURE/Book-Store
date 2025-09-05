@@ -13,16 +13,6 @@ services:
       - sql_data:/var/opt/mssql
     networks:
       - mynetwork
-    healthcheck:
-      test: >
-       CMD-SHELL /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "MyStrongP@ssw0rd!" -Q "SELECT 1"
-      interval: 10s
-      timeout: 60s
-      retries: 10
-      start_period: 60s
-
-
-
   backend:
     image: bookstore-backend
     container_name: bookstore-backend
@@ -44,7 +34,6 @@ services:
       - EmailSettings__Password=ewlu mtqu zirg cunj
     depends_on:
       db:
-        condition: service_healthy
     restart: always
 
 volumes:
