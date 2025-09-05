@@ -33,7 +33,7 @@ services:
       - EmailSettings__UserName=ssn
       - EmailSettings__Password=ewlu mtqu zirg cunj
     depends_on:
-      db:
+      - db
     restart: always
 
 volumes:
